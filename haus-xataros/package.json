@@ -11,7 +11,8 @@
     "preview": "vite preview",
     "postbuild": "cp dist/index.html dist/404.html",
     "predeploy": "bun run build && bun run postbuild",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "postdeploy": "git push origin gh-pages --force"
   },
   "dependencies": {
     "react": "^19.2.0",
