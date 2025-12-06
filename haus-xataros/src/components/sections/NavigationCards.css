@@ -1,0 +1,16 @@
+.navigation-cards {
+  padding: var(--spacing-4xl) 0;
+  background-color: var(--color-white);
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-2xl);
+}
+
+@media (max-width: 768px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+}

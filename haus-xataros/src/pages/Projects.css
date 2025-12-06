@@ -1,0 +1,97 @@
+.projects-hero {
+  background: linear-gradient(
+    135deg,
+    var(--color-charcoal) 0%,
+    var(--color-deep-purple) 100%
+  );
+  padding: var(--spacing-4xl) 0;
+  text-align: center;
+  border-bottom: 4px solid var(--color-electric-gold);
+}
+
+.projects-hero h1 {
+  font-family: var(--font-sans);
+  font-size: 3rem;
+  color: var(--color-electric-gold);
+  margin-bottom: var(--spacing-md);
+}
+
+.projects-hero p {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  color: var(--color-cream);
+  margin: 0;
+}
+
+.projects-content {
+  padding: var(--spacing-4xl) 0;
+  background-color: var(--color-cream);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: var(--spacing-2xl);
+}
+
+.project-card {
+  padding: var(--spacing-2xl);
+  background-color: var(--color-white);
+  border: 2px solid var(--color-charcoal);
+  transition: all 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(74, 20, 140, 0.15);
+  border-color: var(--color-electric-gold);
+}
+
+.project-status {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-deep-purple);
+  background-color: rgba(74, 20, 140, 0.1);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.project-card h2 {
+  font-family: var(--font-sans);
+  font-size: 1.5rem;
+  color: var(--color-charcoal);
+  margin-bottom: var(--spacing-md);
+}
+
+.project-card p {
+  font-family: var(--font-serif);
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--color-gray);
+  margin-bottom: var(--spacing-lg);
+}
+
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.tech-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: var(--color-cream);
+  color: var(--color-charcoal);
+  border: 1px solid var(--color-charcoal);
+}
+
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
