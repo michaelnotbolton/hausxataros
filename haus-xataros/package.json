@@ -10,7 +10,8 @@
     "type-check": "tsc --noEmit",
     "preview": "vite preview",
     "postbuild": "cp dist/index.html dist/404.html",
-    "predeploy": "bun run build && bun run postbuild",
+    "verify": "node scripts/verify-dist-paths.cjs",
+    "predeploy": "bun run build && bun run postbuild && bun run verify",
     "deploy": "gh-pages -d dist",
     "postdeploy": "git push origin gh-pages --force"
   },

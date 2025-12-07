@@ -14,7 +14,7 @@ if (!rootElement) {
 }
 
 ReactDOM.createRoot(rootElement).render(
-  <BrowserRouter basename="/haus-xataros">
+  <BrowserRouter basename="/hausxataros">
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
