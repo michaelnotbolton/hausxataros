@@ -12,8 +12,14 @@
 
 .post-card {
   padding: var(--spacing-xl);
-  background-color: var(--color-white);
+  background: linear-gradient(
+    135deg,
+    var(--color-light-gray) 0%,
+    var(--color-white) 50%,
+    var(--color-off-white) 100%
+  );
   border: 1px solid var(--color-charcoal);
+  border-radius: 12px;
   transition: all 0.3s ease;
   position: relative;
 }
