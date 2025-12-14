@@ -17,6 +17,10 @@
   --color-cream: #f5f5dc;
   --color-white: #ffffff;
   --color-gray: #666666;
+  /* Complementary ombre (teal -> peach) — complements purple/gold without duplicating */
+  --color-ombre-start: #2ec4b6; /* teal */
+  --color-ombre-end: #ffd6a5; /* peach */
+  --card-radius: 12px;
 
   /* Spacing */
   --spacing-xs: 0.25rem;

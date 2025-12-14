@@ -12,10 +12,11 @@
 
 .post-card {
   padding: var(--spacing-xl);
-  background-color: var(--color-white);
+  background: linear-gradient(180deg, rgba(46,196,182,0.02), rgba(255,214,165,0.01)), var(--color-white);
   border: 1px solid var(--color-charcoal);
   transition: all 0.3s ease;
   position: relative;
+  border-radius: var(--card-radius);
 }
 
 .post-card::before {
@@ -25,11 +26,7 @@
   left: 0;
   width: 4px;
   height: 100%;
-  background: linear-gradient(
-    180deg,
-    var(--color-deep-purple),
-    var(--color-electric-gold)
-  );
+  background: linear-gradient(180deg, var(--color-ombre-start), var(--color-ombre-end));
   transform: scaleY(0);
   transform-origin: top;
   transition: transform 0.3s ease;
