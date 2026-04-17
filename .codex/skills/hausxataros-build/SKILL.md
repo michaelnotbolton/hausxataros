@@ -1,17 +1,19 @@
 ---
 name: hausxataros-build
-description: Use when preparing Haus Xataros for release builds, validating the production bundle, or producing the Docker image for the site.
+description: Use when preparing Haus Xataros for release builds after the Gherkin, test, Storybook, and implementation steps are complete, including production build validation and Docker packaging.
 ---
 
 # Haus Xataros Build
 
 The shipping target is `haus-xataros/` relative to the repository root.
 
-## Build workflow
+## Required workflow
 
-1. Run `npm run build`.
-2. Confirm the output lands in `dist/`.
-3. For a container artifact, run `npm run docker:build`.
+1. Confirm the behavior change already followed the sequence: Gherkin first, tests next, Storybook review if relevant, then implementation.
+2. Run `npm run build`.
+3. Confirm the output lands in `dist/`.
+4. For a container artifact, run `npm run docker:build`.
+5. If local production smoke testing matters, run `npm run docker:run`.
 
 ## Notes
 
@@ -19,3 +21,13 @@ The shipping target is `haus-xataros/` relative to the repository root.
 - SPA routing is handled by `nginx.conf`, which falls back to `index.html`.
 - `npm run docker:run` serves the production image locally on port `8080` for a quick smoke test.
 - If Docker is unavailable on the machine, still validate `npm run build` and call out the missing runtime as the blocker.
+
+## Review handoff
+
+Before calling build work complete, verify and report:
+
+1. Gherkin was updated first.
+2. Tests were updated to match the Gherkin.
+3. Storybook was reviewed if components or visual states changed.
+4. App changes were made to satisfy those checks.
+5. Build verification passed, and Docker verification status is clear.

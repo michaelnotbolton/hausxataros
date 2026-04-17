@@ -151,8 +151,23 @@ When adding or changing behavior:
 
 1. Update or add the relevant `.feature` file first.
 2. Add or adjust the matching step definition.
-3. Run `npm run test:e2e` to confirm the behavior works end to end.
-4. Add or update Vitest coverage when the change also benefits from isolated component testing.
+3. Add or update Vitest coverage when the change also benefits from isolated component testing.
+4. If the change affects a component, visual state, or extensibility seam, review it in Storybook.
+5. Run `npm run test:e2e` to confirm the behavior works end to end.
+
+## Review Checklist
+
+Use this order before calling a feature ready:
+
+1. Gherkin changed first.
+2. Step definitions and tests were updated from the Gherkin.
+3. Storybook was reviewed if a component or extensibility surface changed.
+4. Implementation was updated to satisfy the Gherkin and tests.
+5. `npm test` passed.
+6. `npm run test:e2e` passed.
+7. `npm run build` passed.
+8. Docker verification status is known if container shipping matters.
+9. The PR summary includes Gherkin, tests, Storybook, build, and deploy status.
 
 Current feature coverage includes:
 
