@@ -3,7 +3,8 @@ FROM node:22-alpine AS build
 WORKDIR /app
 
 COPY package.json package-lock.json ./
-RUN npm ci
+COPY scripts ./scripts
+RUN npm install && node ./scripts/ensure-native-bindings.cjs
 
 COPY . .
 RUN npm run build

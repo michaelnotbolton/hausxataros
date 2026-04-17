@@ -21,10 +21,10 @@ jobs:
         working-directory: haus-xataros
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: npm
@@ -36,6 +36,9 @@ jobs:
       - name: Verify native bindings
         run: npm run verify:native-bindings
 
+      - name: Verify generated E2E tests are in sync
+        run: npm run test:e2e:check-generated
+
       - name: Install Playwright browser
         run: npx playwright install --with-deps chromium
 
@@ -43,13 +46,19 @@ jobs:
         run: npm test
 
       - name: E2E tests
-        run: npm run test:e2e
+        run: npm run test:e2e:run
 
       - name: Production build
         run: VITE_BASE_PATH=/hausxataros/ npm run build
 
       - name: Copy SPA fallback
         run: npm run postbuild
+
+      - name: Storybook build
+        run: npm run build-storybook
+
+      - name: Storybook Pages build
+        run: VITE_BASE_PATH=/hausxataros/ npm run build-storybook:pages
 
       - name: Docker build
         run: docker build -t haus-xataros:ci .

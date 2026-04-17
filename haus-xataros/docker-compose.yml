@@ -1,0 +1,7 @@
+services:
+  haus-xataros:
+    image: ${IMAGE_NAME:-haus-xataros:local}
+    container_name: haus-xataros
+    restart: unless-stopped
+    ports:
+      - "${HOST_PORT:-8080}:80"

@@ -18,4 +18,21 @@ This repository now ships from the `haus-xataros/` app directory. The old v1 app
 4. Merge to `main`
 5. GitHub Pages deploys from `haus-xataros/dist`
 
+## VPS Hosting
+
+If a third party is hosting the app on a VPS, hand them the Docker image rather than the raw source tree when possible. The app README includes:
+
+- a registry-based handoff flow
+- a fallback `docker save` image export flow
+- a minimal [`haus-xataros/docker-compose.yml`](./haus-xataros/docker-compose.yml) for running the container on a VPS
+
+## Hidden Review Surface
+
+The app also supports a hidden designer review surface:
+
+- app review hub at `/review`
+- published Storybook at `/review/storybook/`
+
+These routes are intentionally unlinked from normal site navigation and exist for direct sharing with designers or reviewers.
+
 For day-to-day setup and release commands, start with [`haus-xataros/README.md`](./haus-xataros/README.md).
