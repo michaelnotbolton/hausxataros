@@ -137,6 +137,46 @@ Use Storybook when you want to:
 - Playwright step definitions live in [`step-definitions/`](</Volumes/X10 Pro/repos/hausxataros/haus-xataros/step-definitions>)
 - Vitest coverage lives in [`src/test/`](</Volumes/X10 Pro/repos/hausxataros/haus-xataros/src/test>)
 
+### Gherkin Workflow
+
+The app uses Gherkin feature files as the behavior contract for the user-facing site. The goal is to describe what the site should do in plain language first, then implement the browser automation behind those behaviors.
+
+How the pieces fit together:
+
+- `features/*.feature`: human-readable requirements for pages and shared UI
+- `step-definitions/*.steps.ts`: Playwright-backed implementations of those steps
+- `npm run test:e2e`: generates the runnable test layer and executes the browser suite
+
+When adding or changing behavior:
+
+1. Update or add the relevant `.feature` file first.
+2. Add or adjust the matching step definition.
+3. Run `npm run test:e2e` to confirm the behavior works end to end.
+4. Add or update Vitest coverage when the change also benefits from isolated component testing.
+
+Current feature coverage includes:
+
+- `home.feature`
+- `work.feature`
+- `drag-queens-guide.feature`
+- `studio-notes.feature`
+- `hire-us.feature`
+- `wiki.feature`
+- `support.feature`
+- `contact.feature`
+- `header.feature`
+- `footer.feature`
+
+Example shape:
+
+```gherkin
+Feature: Home Page
+
+  Scenario: Hero section is visible with a statement of purpose
+    Then I should see the hero section
+    And the hero should contain a statement of purpose
+```
+
 Current expected baseline:
 
 - `npm test` should pass
