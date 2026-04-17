@@ -8,12 +8,8 @@ const lockfilePath = path.join(appRoot, 'package-lock.json');
 const packageJsonPath = path.join(appRoot, 'package.json');
 
 const requiredOptionalDependencies = [
-  '@rolldown/binding-linux-arm64-gnu',
-  '@rolldown/binding-linux-arm64-musl',
   '@rolldown/binding-linux-x64-gnu',
   '@rolldown/binding-linux-x64-musl',
-  'lightningcss-linux-arm64-gnu',
-  'lightningcss-linux-arm64-musl',
   'lightningcss-linux-x64-gnu',
   'lightningcss-linux-x64-musl',
 ];
