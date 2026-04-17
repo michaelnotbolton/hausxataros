@@ -28,7 +28,9 @@
   },
   "optionalDependencies": {
     "@rolldown/binding-linux-x64-gnu": "1.0.0-rc.9",
-    "@rolldown/binding-linux-x64-musl": "1.0.0-rc.9"
+    "@rolldown/binding-linux-x64-musl": "1.0.0-rc.9",
+    "lightningcss-linux-x64-gnu": "1.32.0",
+    "lightningcss-linux-x64-musl": "1.32.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
