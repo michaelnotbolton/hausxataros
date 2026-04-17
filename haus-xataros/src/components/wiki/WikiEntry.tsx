@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import type { TrustedHtml } from '../../data/wiki'
 
 interface WikiLink {
   label: string
@@ -8,7 +9,7 @@ interface WikiLink {
 interface WikiEntryProps {
   title: string
   definition: string
-  body: string
+  body: TrustedHtml
   relatedLinks: WikiLink[]
   referencedIn: WikiLink[]
   breadcrumbs: { label: string; href: string }[]
@@ -35,6 +36,7 @@ export default function WikiEntry({
 
       <h1>{title}</h1>
       <p data-testid="entry-definition">{definition}</p>
+      {/* Wiki HTML is intentionally limited to trusted in-repo content from src/data/wiki.ts. */}
       <div data-testid="entry-body" dangerouslySetInnerHTML={{ __html: body }} />
 
       <section data-testid="related-links">

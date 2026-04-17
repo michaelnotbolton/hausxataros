@@ -1,11 +1,12 @@
 import { screen } from '@testing-library/react'
 import { renderWithRouter } from '../../utils'
 import WikiEntry from '../../../components/wiki/WikiEntry'
+import { trustedHtml } from '../../../data/wiki'
 
 const entry = {
   title: 'Vector',
   definition: 'A conduit through which arcane energy is channeled.',
-  body: '<p>Vectors are individuals or objects capable of directing magical force.</p>',
+  body: trustedHtml('<p>Vectors are individuals or objects capable of directing magical force.</p>'),
   relatedLinks: [
     { label: 'Affirmation System', href: '/wiki/affirmation-system' },
     { label: 'Threshold', href: '/wiki/threshold' },
@@ -39,6 +40,11 @@ describe('WikiEntry', () => {
   it('renders the entry body', () => {
     renderWithRouter(<WikiEntry {...entry} />)
     expect(screen.getByTestId('entry-body')).toBeInTheDocument()
+  })
+
+  it('renders trusted in-repo html content', () => {
+    renderWithRouter(<WikiEntry {...entry} />)
+    expect(screen.getByTestId('entry-body').innerHTML).toContain('Vectors are individuals')
   })
 
   it('renders related links', () => {

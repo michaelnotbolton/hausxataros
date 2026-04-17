@@ -67,7 +67,7 @@ That means:
 
 ## Docker Workflow
 
-The Docker image packages the built static site behind nginx with SPA fallback routing from [`nginx.conf`](</Volumes/X10 Pro/repos/hausxataros/haus-xataros/nginx.conf>).
+The Docker image packages the built static site behind nginx with SPA fallback routing from [`nginx.conf`](./nginx.conf).
 
 Build the local image:
 
@@ -111,7 +111,7 @@ What to do with the container:
 
 ## GitHub Pages
 
-The repo deploys GitHub Pages from `main` using [`.github/workflows/deploy.yml`](</Volumes/X10 Pro/repos/hausxataros/.github/workflows/deploy.yml>).
+The repo deploys GitHub Pages from `main` using [`.github/workflows/deploy.yml`](../.github/workflows/deploy.yml).
 
 The Pages build:
 
@@ -123,7 +123,7 @@ The Pages build:
 
 ## Storybook and Component Work
 
-Storybook is set up so visual elements can be reviewed in isolation instead of only through the full app. Stories and component-scoped styles live next to the components under [`src/components`](</Volumes/X10 Pro/repos/hausxataros/haus-xataros/src/components>).
+Storybook is set up so visual elements can be reviewed in isolation instead of only through the full app. Stories and component-scoped styles live next to the components under [`src/components`](./src/components).
 
 Use Storybook when you want to:
 
@@ -133,9 +133,9 @@ Use Storybook when you want to:
 
 ## Testing Notes
 
-- Feature files live in [`features/`](</Volumes/X10 Pro/repos/hausxataros/haus-xataros/features>)
-- Playwright step definitions live in [`step-definitions/`](</Volumes/X10 Pro/repos/hausxataros/haus-xataros/step-definitions>)
-- Vitest coverage lives in [`src/test/`](</Volumes/X10 Pro/repos/hausxataros/haus-xataros/src/test>)
+- Feature files live in [`features/`](./features/)
+- Playwright step definitions live in [`step-definitions/`](./step-definitions/)
+- Vitest coverage lives in [`src/test/`](./src/test/)
 
 ### Gherkin Workflow
 

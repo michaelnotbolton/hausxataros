@@ -22,7 +22,6 @@ export default function Header() {
             className={({ isActive }) => [styles.link, isActive ? styles.active : ''].filter(Boolean).join(' ')}
             key={to}
             to={to}
-            aria-current={undefined}
             end={to === '/'}
           >
             {label}

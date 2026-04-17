@@ -9,9 +9,9 @@ const project = {
   format: 'PDF',
   version: 'v1.5',
   downloads: [
-    { label: 'Core Rulebook', href: '/downloads/core-rulebook.pdf' },
-    { label: 'Character Sheet Template', href: '/downloads/character-sheet.pdf' },
-    { label: 'Quick Start Guide', href: '/downloads/quick-start.pdf' },
+    { label: 'Core Rulebook', href: 'downloads/core-rulebook.pdf' },
+    { label: 'Character Sheet Template', href: 'downloads/character-sheet.pdf' },
+    { label: 'Quick Start Guide', href: 'downloads/quick-start.pdf' },
   ],
 }
 
@@ -36,6 +36,11 @@ describe('ProjectCard', () => {
     project.downloads.forEach(({ label }) => {
       expect(screen.getByRole('link', { name: new RegExp(label, 'i') })).toBeInTheDocument()
     })
+  })
+
+  it('prefixes download links with the app base path', () => {
+    renderWithRouter(<ProjectCard {...project} />)
+    expect(screen.getByRole('link', { name: /core rulebook/i })).toHaveAttribute('href', '/downloads/core-rulebook.pdf')
   })
 
   it('displays the version label', () => {

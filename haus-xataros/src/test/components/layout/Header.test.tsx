@@ -37,4 +37,9 @@ describe('Header', () => {
     expect(screen.getByRole('link', { name: 'The Wiki' })).toHaveAttribute('href', '/wiki')
     expect(screen.getByRole('link', { name: 'Contact' })).toHaveAttribute('href', '/contact')
   })
+
+  it('marks the active route with aria-current page', () => {
+    renderWithRouter(<Header />, { route: '/work' })
+    expect(screen.getByRole('link', { name: 'Our Work' })).toHaveAttribute('aria-current', 'page')
+  })
 })

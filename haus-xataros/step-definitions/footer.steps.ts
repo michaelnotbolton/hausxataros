@@ -11,6 +11,10 @@ Then('the footer should contain a link to {string}', async ({ page }, label: str
   await expect(page.locator('footer').getByRole('link', { name: label })).toBeVisible()
 })
 
+Then('the footer should not contain a link to {string}', async ({ page }, label: string) => {
+  await expect(page.locator('footer').getByRole('link', { name: label })).toHaveCount(0)
+})
+
 Then('the {string} social link should open in a new tab', async ({ page }, label: string) => {
   const link = page.locator('footer').getByRole('link', { name: label })
   await expect(link).toHaveAttribute('target', '_blank')

@@ -65,3 +65,10 @@ Then('I should see a share button for {string}', async ({ page }, platform: stri
     .or(page.locator(`[data-testid="share-${platform.toLowerCase()}"]`))
   ).toBeVisible()
 })
+
+Then('I should not see a share button for {string}', async ({ page }, platform: string) => {
+  await ensureBlogArticleDetail(page)
+  await expect(page.getByRole('link', { name: new RegExp(`share.*${platform}`, 'i') })).toHaveCount(0)
+  await expect(page.getByRole('button', { name: new RegExp(`share.*${platform}`, 'i') })).toHaveCount(0)
+  await expect(page.locator(`[data-testid="share-${platform.toLowerCase()}"]`)).toHaveCount(0)
+})

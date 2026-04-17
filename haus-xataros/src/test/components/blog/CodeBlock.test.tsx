@@ -33,6 +33,18 @@ describe('CodeBlock', () => {
     expect(writeText).toHaveBeenCalledWith(code)
   })
 
+  it('shows an error message when clipboard access fails', async () => {
+    const user = userEvent.setup()
+    const writeText = vi.fn().mockRejectedValue(new Error('denied'))
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText },
+      configurable: true,
+    })
+    render(<CodeBlock code={code} />)
+    await user.click(screen.getByRole('button', { name: /copy to clipboard/i }))
+    expect(screen.getByRole('status')).toHaveTextContent(/clipboard access is unavailable/i)
+  })
+
   it('shows a language label when provided', () => {
     render(<CodeBlock code={code} language="typescript" />)
     expect(screen.getByText(/typescript/i)).toBeInTheDocument()

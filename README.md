@@ -1,6 +1,6 @@
 # hausxataros
 
-Primary app: [`haus-xataros/`](</Volumes/X10 Pro/repos/hausxataros/haus-xataros>)
+Primary app: [`haus-xataros/`](./haus-xataros/)
 
 This repository now ships from the `haus-xataros/` app directory. The old v1 app has been retired from the working tree, and the current React/Vite app, tests, Storybook setup, and Docker packaging all live there.
 
@@ -18,4 +18,4 @@ This repository now ships from the `haus-xataros/` app directory. The old v1 app
 4. Merge to `main`
 5. GitHub Pages deploys from `haus-xataros/dist`
 
-For day-to-day setup and release commands, start with [`haus-xataros/README.md`](</Volumes/X10 Pro/repos/hausxataros/haus-xataros/README.md>).
+For day-to-day setup and release commands, start with [`haus-xataros/README.md`](./haus-xataros/README.md).

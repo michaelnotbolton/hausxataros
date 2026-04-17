@@ -22,9 +22,9 @@ export const projects: Project[] = [
     format: 'PDF',
     version: 'v1.2',
     downloads: [
-      { label: 'Download Core Rulebook', href: '/downloads/zeitgeist-chronicles-core.pdf' },
-      { label: 'Download Character Sheet Template', href: '/downloads/zeitgeist-character-sheet.pdf' },
-      { label: 'Download Quick Start Guide', href: '/downloads/zeitgeist-chronicles-quick-start.pdf' },
+      { label: 'Download Core Rulebook', href: 'downloads/zeitgeist-chronicles-core.pdf' },
+      { label: 'Download Character Sheet Template', href: 'downloads/zeitgeist-character-sheet.pdf' },
+      { label: 'Download Quick Start Guide', href: 'downloads/zeitgeist-chronicles-quick-start.pdf' },
     ],
     seriesProgression: ['Chapter 1: The Threshold', 'Chapter 2: The Archive', 'Chapter 3: The Rift'],
   },
@@ -36,9 +36,9 @@ export const projects: Project[] = [
     format: 'Ebook',
     version: 'v2.0',
     downloads: [
-      { label: 'Download Book 1', href: '/downloads/zeitgeist-fiction-book1.epub' },
-      { label: 'Download Book 2', href: '/downloads/zeitgeist-fiction-book2.epub' },
-      { label: 'Download Book 3', href: '/downloads/zeitgeist-fiction-book3.epub' },
+      { label: 'Download Book 1', href: 'downloads/zeitgeist-fiction-book1.epub' },
+      { label: 'Download Book 2', href: 'downloads/zeitgeist-fiction-book2.epub' },
+      { label: 'Download Book 3', href: 'downloads/zeitgeist-fiction-book3.epub' },
     ],
     seriesProgression: ['Book 1', 'Book 2', 'Book 3'],
   },
@@ -50,8 +50,8 @@ export const projects: Project[] = [
     format: 'PDF',
     version: 'v3.1',
     downloads: [
-      { label: 'Download Complete Guide', href: '/downloads/creativity-channeling-workbook.pdf' },
-      { label: 'Download Quick-Start Resource Pack', href: '/downloads/creativity-channeling-facilitator.pdf' },
+      { label: 'Download Complete Guide', href: 'downloads/creativity-channeling-workbook.pdf' },
+      { label: 'Download Quick-Start Resource Pack', href: 'downloads/creativity-channeling-facilitator.pdf' },
     ],
   },
 ]

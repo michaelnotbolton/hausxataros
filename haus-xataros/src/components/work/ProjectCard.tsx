@@ -25,6 +25,8 @@ export default function ProjectCard({
   downloads,
   seriesProgression,
 }: ProjectCardProps) {
+  const basePath = import.meta.env.BASE_URL
+
   return (
     <article className={styles.card} data-testid="project-card" data-category={category} data-format={format}>
       <div className={styles.meta}>
@@ -44,7 +46,13 @@ export default function ProjectCard({
       <ul className={styles.downloads}>
         {downloads.map(({ label, href }) => (
           <li key={label}>
-            <a className={styles.downloadLink} href={href} download>{label}</a>
+            <a
+              className={styles.downloadLink}
+              href={`${basePath}${href.replace(/^\/+/, '')}`}
+              download
+            >
+              {label}
+            </a>
           </li>
         ))}
       </ul>

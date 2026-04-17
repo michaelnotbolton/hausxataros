@@ -7,11 +7,18 @@ interface CodeBlockProps {
 
 export default function CodeBlock({ code, language }: CodeBlockProps) {
   const [copied, setCopied] = useState(false)
+  const [copyError, setCopyError] = useState(false)
 
   async function handleCopy() {
-    await navigator.clipboard.writeText(code)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
+    try {
+      await navigator.clipboard.writeText(code)
+      setCopyError(false)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      setCopied(false)
+      setCopyError(true)
+    }
   }
 
   return (
@@ -21,6 +28,7 @@ export default function CodeBlock({ code, language }: CodeBlockProps) {
       <button onClick={handleCopy}>
         {copied ? 'Copied!' : 'Copy to Clipboard'}
       </button>
+      {copyError && <p role="status">Clipboard access is unavailable.</p>}
     </section>
   )
 }

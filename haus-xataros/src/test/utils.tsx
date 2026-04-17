@@ -2,10 +2,18 @@ import { render, type RenderOptions } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import type { ReactElement } from 'react'
 
-function WithRouter({ children }: { children: React.ReactNode }) {
-  return <MemoryRouter>{children}</MemoryRouter>
+interface RouterOptions extends RenderOptions {
+  route?: string
 }
 
-export function renderWithRouter(ui: ReactElement, options?: RenderOptions) {
-  return render(ui, { wrapper: WithRouter, ...options })
+function WithRouter({ children, route = '/' }: { children: React.ReactNode; route?: string }) {
+  return <MemoryRouter initialEntries={[route]}>{children}</MemoryRouter>
+}
+
+export function renderWithRouter(ui: ReactElement, options?: RouterOptions) {
+  const { route, ...renderOptions } = options ?? {}
+  return render(ui, {
+    wrapper: ({ children }) => <WithRouter route={route}>{children}</WithRouter>,
+    ...renderOptions,
+  })
 }

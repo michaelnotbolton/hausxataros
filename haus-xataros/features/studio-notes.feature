@@ -31,10 +31,10 @@ Feature: Studio Notes (Blog)
     And I should see the author byline
     And I should see the article body
 
-  Scenario: Article detail page has share buttons
-    Then I should see a share button for "Facebook"
-    And I should see a share button for "Bluesky"
-    And I should see a share button for "Email"
+  Scenario: Article detail page hides placeholder share actions
+    Then I should not see a share button for "Facebook"
+    And I should not see a share button for "Bluesky"
+    And I should not see a share button for "Email"
 
   Scenario: Article detail page has a subscribe CTA
     Then I should see a "Subscribe to This Series" call to action
