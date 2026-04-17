@@ -4,12 +4,12 @@ on:
   push:
     paths:
       - ".github/workflows/deploy.yml"
-      - ".github/workflows/v2-ci.yml"
+      - ".github/workflows/app-ci.yml"
       - "haus-xataros/**"
   pull_request:
     paths:
       - ".github/workflows/deploy.yml"
-      - ".github/workflows/v2-ci.yml"
+      - ".github/workflows/app-ci.yml"
       - "haus-xataros/**"
   workflow_dispatch:
 
