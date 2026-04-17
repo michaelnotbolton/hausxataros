@@ -1,0 +1,28 @@
+.grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.card {
+  padding: 1.4rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02)),
+    var(--panel-strong);
+}
+
+.title {
+  margin-bottom: 0.9rem;
+  color: var(--gold);
+}
+
+.list {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: var(--text-muted);
+}
+
+.list li + li {
+  margin-top: 0.45rem;
+}

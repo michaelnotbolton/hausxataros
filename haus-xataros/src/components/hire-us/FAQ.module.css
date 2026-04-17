@@ -1,0 +1,30 @@
+.section {
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.item {
+  padding: 1rem 1.2rem;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--line);
+}
+
+.trigger {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font: 700 1rem/1.3 var(--sans);
+  text-align: left;
+}
+
+.answer {
+  margin-top: 0.8rem;
+  color: var(--text-muted);
+}

@@ -1,28 +1,34 @@
-import { Link } from "react-router-dom";
-import "./Header.css";
+import { NavLink } from 'react-router-dom'
+import styles from './Header.module.css'
+
+const navLinks = [
+  { label: 'Home', to: '/' },
+  { label: 'Our Work', to: '/work' },
+  { label: "The Drag Queen's Guide", to: '/drag-queens-guide' },
+  { label: 'Studio Notes', to: '/studio-notes' },
+  { label: 'Hire Us', to: '/hire-us' },
+  { label: 'The Wiki', to: '/wiki' },
+  { label: 'Support Us', to: '/support' },
+  { label: 'Contact', to: '/contact' },
+]
 
 export default function Header() {
   return (
-    <header className="header">
-      <div className="header-container">
-        <Link to="/" className="header-logo">
-          <h1 className="header-title">Haus Xataros</h1>
-        </Link>
-        <nav className="header-nav">
-          <Link to="/projects" className="nav-link">
-            Projects
-          </Link>
-          <Link to="/blog" className="nav-link">
-            Blog
-          </Link>
-          <Link to="/services" className="nav-link">
-            Services
-          </Link>
-          <Link to="/about" className="nav-link">
-            About
-          </Link>
-        </nav>
-      </div>
+    <header className={styles.header}>
+      <span className={styles.logo}>Haus Xataros</span>
+      <nav className={styles.nav}>
+        {navLinks.map(({ label, to }) => (
+          <NavLink
+            className={({ isActive }) => [styles.link, isActive ? styles.active : ''].filter(Boolean).join(' ')}
+            key={to}
+            to={to}
+            aria-current={undefined}
+            end={to === '/'}
+          >
+            {label}
+          </NavLink>
+        ))}
+      </nav>
     </header>
-  );
+  )
 }

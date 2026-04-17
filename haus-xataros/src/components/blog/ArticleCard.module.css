@@ -1,0 +1,40 @@
+.card {
+  display: grid;
+  gap: 0.9rem;
+  padding: 1.4rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02)),
+    var(--panel-strong);
+}
+
+.title {
+  font-size: 1.45rem;
+}
+
+.link {
+  color: var(--text);
+}
+
+.link:hover {
+  color: var(--gold);
+}
+
+.date {
+  color: var(--text-muted);
+}
+
+.excerpt {
+  color: var(--text-muted);
+}
+
+.readTime {
+  margin-top: 0.2rem;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}

@@ -1,7 +1,15 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
+import { defineConfig } from 'vitest/config'
+import react from '@vitejs/plugin-react'
 
+// https://vite.dev/config/
 export default defineConfig({
+  base: process.env.VITE_BASE_PATH ?? '/',
   plugins: [react()],
-  base: "/hausxataros/",
-});
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: ['./src/test/setup.ts'],
+    include: ['src/test/**/*.test.{ts,tsx}'],
+    exclude: ['.features-gen/**', 'node_modules/**', '**/._*'],
+  },
+})

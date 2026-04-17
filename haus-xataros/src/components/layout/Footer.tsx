@@ -1,60 +1,23 @@
-import "./Footer.css";
+import styles from './Footer.module.css'
+
+const socialLinks = [
+  { label: 'Substack', href: '#' },
+  { label: 'Bluesky', href: '#' },
+  { label: 'Facebook', href: '#' },
+  { label: 'Instagram', href: '#' },
+]
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
-
   return (
-    <footer className="footer">
-      <div className="footer-container">
-        <div className="footer-content">
-          <div className="footer-brand">
-            <h3>Haus Xataros</h3>
-            <p>Theatrical elegance meets editorial precision</p>
-          </div>
-
-          <div className="footer-social">
-            <h4>Connect With Us</h4>
-            <div className="social-links">
-              <a
-                href="https://substack.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="social-link"
-              >
-                Substack
-              </a>
-              <a
-                href="https://bluesky.app"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="social-link"
-              >
-                Bluesky
-              </a>
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="social-link"
-              >
-                Facebook
-              </a>
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="social-link"
-              >
-                Instagram
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div className="footer-bottom">
-          <p>&copy; {currentYear} Haus Xataros. All rights reserved.</p>
-        </div>
-      </div>
+    <footer className={styles.footer}>
+      <nav aria-label="Social media links" className={styles.nav}>
+        {socialLinks.map(({ label, href }) => (
+          <a className={styles.link} key={label} href={href} target="_blank" rel="noopener noreferrer">
+            {label}
+          </a>
+        ))}
+      </nav>
+      <p className={styles.copy}>© Haus Xataros</p>
     </footer>
-  );
+  )
 }
