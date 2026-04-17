@@ -12,6 +12,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "postbuild": "cp dist/index.html dist/404.html",
+    "verify:native-bindings": "node ./scripts/verify-native-bindings.cjs",
     "test": "vitest run",
     "test:all": "npm test && npm run test:e2e",
     "test:watch": "vitest",

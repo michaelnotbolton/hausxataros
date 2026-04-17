@@ -27,6 +27,10 @@ jobs:
         working-directory: haus-xataros
         run: npm ci
 
+      - name: Verify native bindings
+        working-directory: haus-xataros
+        run: npm run verify:native-bindings
+
       - name: Run tests
         working-directory: haus-xataros
         run: npm test
