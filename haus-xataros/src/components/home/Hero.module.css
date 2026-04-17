@@ -1,0 +1,48 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(4rem, 10vw, 7rem) 1.5rem;
+  border-radius: calc(var(--radius) + 10px);
+  background:
+    radial-gradient(circle at top left, rgba(255, 222, 137, 0.22), transparent 28%),
+    radial-gradient(circle at 80% 30%, rgba(255, 141, 183, 0.18), transparent 25%),
+    linear-gradient(135deg, #25173a 0%, #16111f 55%, #3b1837 100%);
+  box-shadow: var(--shadow);
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: calc(var(--radius) + 2px);
+  pointer-events: none;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  max-width: 48rem;
+}
+
+.kicker {
+  margin-bottom: 1rem;
+  font: 700 0.8rem/1 var(--sans);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rose);
+}
+
+.heading {
+  max-width: 9ch;
+  color: var(--gold-strong);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.subheading {
+  max-width: 42rem;
+  margin-top: 1.25rem;
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  color: #f4e8ff;
+}

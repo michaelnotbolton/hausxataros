@@ -1,0 +1,26 @@
+.card {
+  display: grid;
+  gap: 0.8rem;
+  padding: 1.4rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02)),
+    var(--panel-strong);
+}
+
+.title {
+  font-size: 1.3rem;
+}
+
+.link {
+  color: var(--text);
+}
+
+.link:hover {
+  color: var(--gold);
+}
+
+.definition {
+  color: var(--text-muted);
+}

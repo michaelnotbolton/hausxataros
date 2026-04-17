@@ -1,0 +1,55 @@
+name: App CI
+
+on:
+  push:
+    paths:
+      - ".github/workflows/deploy.yml"
+      - ".github/workflows/app-ci.yml"
+      - "haus-xataros/**"
+  pull_request:
+    paths:
+      - ".github/workflows/deploy.yml"
+      - ".github/workflows/app-ci.yml"
+      - "haus-xataros/**"
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: haus-xataros
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: haus-xataros/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify native bindings
+        run: npm run verify:native-bindings
+
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Unit tests
+        run: npm test
+
+      - name: E2E tests
+        run: npm run test:e2e
+
+      - name: Production build
+        run: VITE_BASE_PATH=/hausxataros/ npm run build
+
+      - name: Copy SPA fallback
+        run: npm run postbuild
+
+      - name: Docker build
+        run: docker build -t haus-xataros:ci .

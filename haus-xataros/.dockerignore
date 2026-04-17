@@ -1,0 +1,9 @@
+node_modules
+dist
+playwright-report
+test-results
+.features-gen
+.git
+.DS_Store
+._*
+npm-debug.log*

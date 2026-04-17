@@ -16,26 +16,32 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          bun-version: latest
+          node-version: 22
+          cache: npm
+          cache-dependency-path: haus-xataros/package-lock.json
 
       - name: Install dependencies
-        run: bun install --frozen-lockfile
         working-directory: haus-xataros
+        run: npm ci
 
-      - name: Build
-        run: bun run build
+      - name: Verify native bindings
         working-directory: haus-xataros
+        run: npm run verify:native-bindings
+
+      - name: Run tests
+        working-directory: haus-xataros
+        run: npm test
+
+      - name: Build for GitHub Pages
+        working-directory: haus-xataros
+        run: VITE_BASE_PATH=/hausxataros/ npm run build
 
       - name: Copy 404
-        run: bun run postbuild
         working-directory: haus-xataros
-
-      - name: Verify asset paths
-        run: bun run verify
-        working-directory: haus-xataros
+        run: npm run postbuild
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3

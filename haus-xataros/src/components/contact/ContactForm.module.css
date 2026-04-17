@@ -1,0 +1,46 @@
+.form {
+  display: grid;
+  gap: 0.8rem;
+  padding: 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.label {
+  font: 700 0.82rem/1.2 var(--sans);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  color: var(--text);
+  background: rgba(10, 7, 18, 0.45);
+}
+
+.textarea {
+  min-height: 10rem;
+  resize: vertical;
+}
+
+.button {
+  justify-self: start;
+}
+
+.confirmation {
+  padding: 1.25rem 1.4rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
+.confirmationText {
+  color: var(--gold-strong);
+}

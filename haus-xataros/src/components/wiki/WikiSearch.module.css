@@ -1,0 +1,20 @@
+.search {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.label {
+  font: 700 0.82rem/1.2 var(--sans);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  color: var(--text);
+  background: rgba(10, 7, 18, 0.45);
+}

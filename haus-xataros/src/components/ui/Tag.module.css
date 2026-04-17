@@ -1,0 +1,19 @@
+.tag {
+  display: inline-flex;
+  width: fit-content;
+  padding: 0.38rem 0.72rem;
+  border-radius: 999px;
+  font: 700 0.74rem/1 var(--sans);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.gold {
+  color: var(--gold-strong);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.muted {
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.05);
+}
