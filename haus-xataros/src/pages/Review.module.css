@@ -1,0 +1,61 @@
+.reviewPage {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.hero,
+.guidance,
+.card {
+  padding: 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(180deg, rgba(31, 22, 46, 0.92) 0%, rgba(19, 14, 29, 0.95) 100%);
+  box-shadow: var(--shadow);
+}
+
+.eyebrow {
+  color: var(--gold);
+  font: 700 0.76rem/1 var(--sans);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-inline: 1.5rem;
+}
+
+.actions a {
+  min-width: 14rem;
+}
+
+.guidance ol,
+.card ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: var(--text-muted);
+}
+
+.guidance li + li,
+.card li + li {
+  margin-top: 0.55rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.card a {
+  color: var(--gold);
+  font-family: var(--sans);
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

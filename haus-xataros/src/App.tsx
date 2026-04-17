@@ -11,6 +11,7 @@ import Wiki from './pages/Wiki'
 import WikiEntryPage from './pages/WikiEntryPage'
 import Support from './pages/Support'
 import Contact from './pages/Contact'
+import Review from './pages/Review'
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/wiki/:slug" element={<WikiEntryPage />} />
           <Route path="/support" element={<Support />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/review" element={<Review />} />
         </Routes>
       </main>
       <Footer />

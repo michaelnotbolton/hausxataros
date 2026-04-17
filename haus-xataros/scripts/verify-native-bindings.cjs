@@ -5,6 +5,14 @@ const path = require('node:path');
 
 const appRoot = path.resolve(__dirname, '..');
 const lockfilePath = path.join(appRoot, 'package-lock.json');
+const packageJsonPath = path.join(appRoot, 'package.json');
+
+const requiredOptionalDependencies = [
+  '@rolldown/binding-linux-x64-gnu',
+  '@rolldown/binding-linux-x64-musl',
+  'lightningcss-linux-x64-gnu',
+  'lightningcss-linux-x64-musl',
+];
 
 const requiredLockEntries = [
   'node_modules/@rolldown/binding-linux-x64-gnu',
@@ -22,11 +30,34 @@ function hasGlibc() {
   return Boolean(process.report?.getReport?.().header?.glibcVersionRuntime);
 }
 
+function readPackageJson() {
+  try {
+    return JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+  } catch (error) {
+    fail(`could not read package.json: ${error.message}`);
+  }
+}
+
 function readLockfile() {
   try {
     return JSON.parse(fs.readFileSync(lockfilePath, 'utf8'));
   } catch (error) {
     fail(`could not read package-lock.json: ${error.message}`);
+  }
+}
+
+function verifyPackageJson(packageJson) {
+  const optionalDependencies = packageJson.optionalDependencies ?? {};
+  const missing = requiredOptionalDependencies.filter(
+    (dependency) => !optionalDependencies[dependency],
+  );
+
+  if (missing.length > 0) {
+    fail(
+      `package.json is missing required optional native bindings: ${missing.join(
+        ', ',
+      )}`,
+    );
   }
 }
 
@@ -44,14 +75,14 @@ function verifyLockfile(lockfile) {
 }
 
 function verifyInstalledBindings() {
-  if (process.platform !== 'linux' || process.arch !== 'x64') {
+  if (process.platform !== 'linux' || !['x64', 'arm64'].includes(process.arch)) {
     return;
   }
 
   const libcVariant = hasGlibc() ? 'gnu' : 'musl';
   const requiredInstalledEntries = [
-    `node_modules/@rolldown/binding-linux-x64-${libcVariant}`,
-    `node_modules/lightningcss-linux-x64-${libcVariant}`,
+    `node_modules/@rolldown/binding-linux-${process.arch}-${libcVariant}`,
+    `node_modules/lightningcss-linux-${process.arch}-${libcVariant}`,
   ];
 
   const missing = requiredInstalledEntries.filter(
@@ -66,6 +97,9 @@ function verifyInstalledBindings() {
     );
   }
 }
+
+const packageJson = readPackageJson();
+verifyPackageJson(packageJson);
 
 const lockfile = readLockfile();
 verifyLockfile(lockfile);

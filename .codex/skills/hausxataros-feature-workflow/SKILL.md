@@ -10,12 +10,13 @@ Work from `haus-xataros/` relative to the repository root.
 ## Canonical order
 
 1. Update the relevant Gherkin in `features/` first.
-2. Update the Playwright step definitions and Vitest coverage to match the Gherkin.
-3. If the change affects a component, visual state, or extensibility surface, review it in Storybook.
-4. Make implementation changes to satisfy the Gherkin, tests, and Storybook expectations.
-5. Run build and verification commands.
-6. Review the work by confirming the earlier steps really happened in order.
-7. Publish or update the PR with a summary of the workflow and verification status.
+2. Update the Playwright step definitions to match the Gherkin.
+3. Run `npm run test:e2e:generate` so `.features-gen/` reflects the new behavior before implementation.
+4. If the change affects a component, visual state, or extensibility surface, review it in Storybook.
+5. Make implementation changes to satisfy the Gherkin, generated Playwright tests, and Storybook expectations.
+6. Run build and verification commands.
+7. Review the work by confirming the earlier steps really happened in order.
+8. Publish or update the PR with a summary of the workflow and verification status.
 
 ## Step details
 
@@ -28,6 +29,7 @@ Work from `haus-xataros/` relative to the repository root.
 ### 2. Tests from Gherkin
 
 - Update `step-definitions/*.steps.ts` to implement the browser behavior.
+- Regenerate `.features-gen/` with `npm run test:e2e:generate` before changing app code.
 - Update `src/test/**/*.test.tsx` when component-level coverage is useful.
 - Make the tests prove the behavior written in Gherkin, not a different interpretation.
 
@@ -47,9 +49,11 @@ Work from `haus-xataros/` relative to the repository root.
 Run the relevant commands:
 
 - `npm test`
-- `npm run test:e2e`
+- `npm run test:e2e:check-generated`
+- `npm run test:e2e:run`
 - `npm run build`
 - `npm run build-storybook` when Storybook changes matter
+- `npm run build-storybook:pages` when the published review surface changes matter
 - `npm run docker:build` and `npm run docker:run` when container verification matters
 
 ### 6. Review checklist
@@ -57,17 +61,19 @@ Run the relevant commands:
 Before calling the work complete, confirm:
 
 1. Gherkin changed first.
-2. Tests changed to match the Gherkin.
-3. Storybook was reviewed if component or extensibility work was involved.
-4. Implementation satisfied those checks.
-5. Build and test results are known.
-6. Any Docker or environment blockers are stated clearly.
+2. Step definitions changed to match the Gherkin.
+3. `.features-gen/` was regenerated before implementation and is committed in sync.
+4. Storybook was reviewed if component or extensibility work was involved.
+5. Implementation satisfied those checks.
+6. Build and test results are known.
+7. Any Docker or environment blockers are stated clearly.
 
 ### 7. PR publication
 
 When opening or updating a PR, summarize:
 
 - Gherkin changes
+- generated test sync status
 - test changes
 - Storybook review status
 - implementation changes
