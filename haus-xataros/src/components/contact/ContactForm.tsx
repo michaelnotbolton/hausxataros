@@ -4,8 +4,14 @@ import styles from './ContactForm.module.css'
 interface ContactFormData {
   name: string
   email: string
+  consultant: string
   subject: string
   message: string
+}
+
+interface ConsultantOption {
+  label: string
+  value: string
 }
 
 interface ContactFormProps {
@@ -13,6 +19,8 @@ interface ContactFormProps {
   subjectLabel?: string
   messageLabel?: string
   submitLabel?: string
+  consultants?: ConsultantOption[]
+  defaultConsultant?: string
 }
 
 export default function ContactForm({
@@ -20,16 +28,19 @@ export default function ContactForm({
   subjectLabel = 'Subject',
   messageLabel = 'Message',
   submitLabel = 'Send',
+  consultants = [],
+  defaultConsultant = '',
 }: ContactFormProps) {
   const [fields, setFields] = useState<ContactFormData>({
     name: '',
     email: '',
+    consultant: defaultConsultant,
     subject: '',
     message: '',
   })
   const [submitted, setSubmitted] = useState(false)
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
     setFields((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
@@ -56,6 +67,24 @@ export default function ContactForm({
 
       <label className={styles.label} htmlFor="contact-email">Email</label>
       <input className={styles.input} id="contact-email" name="email" type="email" value={fields.email} onChange={handleChange} />
+
+      {consultants.length > 0 && (
+        <>
+          <label className={styles.label} htmlFor="contact-consultant">Consultant</label>
+          <select
+            className={styles.select}
+            id="contact-consultant"
+            name="consultant"
+            value={fields.consultant}
+            onChange={handleChange}
+          >
+            <option value="">No preference yet</option>
+            {consultants.map((consultant) => (
+              <option key={consultant.value} value={consultant.value}>{consultant.label}</option>
+            ))}
+          </select>
+        </>
+      )}
 
       <label className={styles.label} htmlFor="contact-subject">{subjectLabel}</label>
       <input className={styles.input} id="contact-subject" name="subject" type="text" value={fields.subject} onChange={handleChange} />

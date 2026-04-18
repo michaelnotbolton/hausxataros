@@ -7,6 +7,7 @@ const project = {
   description: 'A tabletop RPG set in a world of arcane politics.',
   category: 'TTRPG',
   format: 'PDF',
+  authorKey: 'david-m-daniel',
   version: 'v1.5',
   downloads: [
     { label: 'Core Rulebook', href: 'downloads/core-rulebook.pdf' },
@@ -58,5 +59,18 @@ describe('ProjectCard', () => {
     renderWithRouter(<ProjectCard {...project} />)
     const card = screen.getByTestId('project-card')
     expect(card).toHaveAttribute('data-format', project.format)
+  })
+
+  it('shows the consultant author tag', () => {
+    renderWithRouter(<ProjectCard {...project} />)
+
+    expect(screen.getByText('David M. Daniel')).toBeInTheDocument()
+    expect(screen.getByTestId('project-card')).toHaveAttribute('data-author', 'David M. Daniel')
+  })
+
+  it('marks the card when its author is the active filter', () => {
+    renderWithRouter(<ProjectCard {...project} activeAuthor="David M. Daniel" />)
+
+    expect(screen.getByTestId('project-card')).toHaveAttribute('data-author-selected', 'true')
   })
 })

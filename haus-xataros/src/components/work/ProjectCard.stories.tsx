@@ -9,6 +9,7 @@ const meta = {
     description: 'A tabletop RPG set in a world shaped by collective memory and arcane bureaucracy.',
     category: 'TTRPG',
     format: 'PDF',
+    authorKey: 'david-m-daniel',
     version: 'v1.2',
     downloads: [
       { label: 'Download Core Rulebook', href: '/downloads/zeitgeist-chronicles-core.pdf' },
@@ -23,4 +24,6 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {}
+export const Default: Story = {
+  args: {},
+}

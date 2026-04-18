@@ -43,16 +43,6 @@ export const services: Service[] = [
     price: '$400–$600',
   },
 ]
-
-export const consultants = [
-  {
-    name: 'David M. Daniel',
-    alterEgo: "Leona La'Roux",
-    bio: 'A multidisciplinary creative with decades of experience across fiction, game design, performance, and strategic consulting.',
-    philosophy: 'Every problem is a story waiting to be told correctly.',
-  },
-]
-
 export const howItWorksSteps = [
   { number: 1, description: 'We meet for 30 minutes to understand your project and goals.' },
   { number: 2, description: 'We send a tailored proposal outlining scope, timeline, and investment.' },

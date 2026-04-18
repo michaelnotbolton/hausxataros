@@ -14,6 +14,7 @@ const storySections = [
     entries: [
       { label: 'Navigation Cards', storyId: 'home-navigationcards--default' },
       { label: 'Tag', storyId: 'ui-tag--gold' },
+      { label: 'Pill', storyId: 'ui-selectablepill--default' },
     ],
   },
   {

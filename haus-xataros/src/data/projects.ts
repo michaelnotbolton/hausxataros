@@ -8,6 +8,7 @@ export interface Project {
   description: string
   category: string
   format: string
+  authorKey: string
   version: string
   downloads: ProjectDownload[]
   seriesProgression?: string[]
@@ -20,6 +21,7 @@ export const projects: Project[] = [
       'A tabletop RPG set in a world shaped by collective memory and arcane bureaucracy. Players navigate politics, power, and prophecy.',
     category: 'TTRPG',
     format: 'PDF',
+    authorKey: 'david-m-daniel',
     version: 'v1.2',
     downloads: [
       { label: 'Download Core Rulebook', href: 'downloads/zeitgeist-chronicles-core.pdf' },
@@ -34,6 +36,7 @@ export const projects: Project[] = [
       'A serialized fiction series set in the same universe as the TTRPG, following a cast of characters through the collapse of the Archive.',
     category: 'Fiction',
     format: 'Ebook',
+    authorKey: 'david-m-daniel',
     version: 'v2.0',
     downloads: [
       { label: 'Download Book 1', href: 'downloads/zeitgeist-fiction-book1.epub' },
@@ -48,6 +51,7 @@ export const projects: Project[] = [
       'A structured methodology for unlocking creative potential through ritual, reflection, and collaborative play. Suitable for individuals and teams.',
     category: 'Methodology',
     format: 'PDF',
+    authorKey: 'david-m-daniel',
     version: 'v3.1',
     downloads: [
       { label: 'Download Complete Guide', href: 'downloads/creativity-channeling-workbook.pdf' },
