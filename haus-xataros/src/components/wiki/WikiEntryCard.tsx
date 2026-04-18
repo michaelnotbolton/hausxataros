@@ -4,19 +4,24 @@ import styles from './WikiEntryCard.module.css'
 
 interface WikiEntryCardProps {
   title: string
-  slug: string
-  definition: string
-  category: string
+  routePath: string
+  summary: string
+  sectionTitle: string
 }
 
-export default function WikiEntryCard({ title, slug, definition, category }: WikiEntryCardProps) {
+export default function WikiEntryCard({
+  title,
+  routePath,
+  summary,
+  sectionTitle,
+}: WikiEntryCardProps) {
   return (
-    <article className={styles.card} data-testid="wiki-entry-card" data-category={category}>
-      <Tag tone="muted">{category}</Tag>
+    <article className={styles.card} data-testid="wiki-article-card">
+      <Tag tone="muted">{sectionTitle}</Tag>
       <h3 className={styles.title}>
-        <Link className={styles.link} to={`/wiki/${slug}`}>{title}</Link>
+        <Link className={styles.link} to={routePath}>{title}</Link>
       </h3>
-      <p className={styles.definition} data-testid="entry-definition">{definition}</p>
+      <p className={styles.definition}>{summary}</p>
     </article>
   )
 }

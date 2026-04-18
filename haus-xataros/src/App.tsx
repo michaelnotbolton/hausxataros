@@ -28,7 +28,7 @@ function App() {
           <Route path="/article/:slug" element={<ArticleDetailPage />} />
           <Route path="/hire-us" element={<HireUs />} />
           <Route path="/wiki" element={<Wiki />} />
-          <Route path="/wiki/:slug" element={<WikiEntryPage />} />
+          <Route path="/wiki/*" element={<WikiEntryPage />} />
           <Route path="/support" element={<Support />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/review" element={<Review />} />
