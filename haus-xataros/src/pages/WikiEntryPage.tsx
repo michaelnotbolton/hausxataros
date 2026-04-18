@@ -1,21 +1,16 @@
-import { useParams, Navigate } from 'react-router-dom'
-import WikiEntry from '../components/wiki/WikiEntry'
-import { getWikiEntryBySlug } from '../data/wiki'
+import { Navigate, useParams } from 'react-router-dom'
+import WikiPage from '../components/wiki/WikiPage'
+import { getWikiPageByRoutePath } from '../data/wiki'
 
 export default function WikiEntryPage() {
-  const { slug } = useParams<{ slug: string }>()
-  const entry = slug ? getWikiEntryBySlug(slug) : undefined
+  const params = useParams()
+  const splat = params['*']?.replace(/^\/+/, '') ?? ''
+  const routePath = splat ? `/wiki/${splat}` : '/wiki'
+  const page = getWikiPageByRoutePath(routePath)
 
-  if (!entry) return <Navigate to="/wiki" replace />
+  if (!page || routePath === '/wiki') {
+    return <Navigate to="/wiki" replace />
+  }
 
-  return (
-    <WikiEntry
-      title={entry.title}
-      definition={entry.definition}
-      body={entry.body}
-      relatedLinks={entry.relatedLinks}
-      referencedIn={entry.referencedIn}
-      breadcrumbs={entry.breadcrumbs}
-    />
-  )
+  return <WikiPage page={page} />
 }

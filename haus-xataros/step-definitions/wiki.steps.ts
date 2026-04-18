@@ -1,61 +1,100 @@
 import { createBdd } from 'playwright-bdd'
 import { expect } from '@playwright/test'
 
-const { When, Then } = createBdd()
+const { Given, When, Then } = createBdd()
 
-Then('I should see a search bar', async ({ page }) => {
-  await expect(page.getByRole('searchbox').or(page.getByRole('textbox', { name: /search/i }))).toBeVisible()
+Then('I should see the wiki sidebar', async ({ page }) => {
+  await expect(page.locator('[data-testid="wiki-sidebar"]')).toBeVisible()
 })
 
-When('I type {string} into the search bar', async ({ page }, query: string) => {
-  await page.getByRole('searchbox').or(page.getByRole('textbox', { name: /search/i })).fill(query)
+Then('I should see a wiki sidebar home link', async ({ page }) => {
+  await expect(page.locator('[data-testid="wiki-sidebar"]').getByRole('link', { name: /main wiki/i })).toBeVisible()
 })
 
-Then('I should see search results', async ({ page }) => {
-  await expect(page.locator('[data-testid="search-results"]')).toBeVisible()
-  const count = await page.locator('[data-testid="wiki-entry-card"]').count()
-  expect(count).toBeGreaterThanOrEqual(1)
+Then('I should see a wiki sidebar section {string}', async ({ page }, sectionTitle: string) => {
+  await expect(page.locator('[data-testid="wiki-sidebar"]').getByText(sectionTitle)).toBeVisible()
 })
 
-Then('I should see a category nav containing {string}', async ({ page }, category: string) => {
-  await expect(page.locator('[data-testid="category-nav"]').getByText(category)).toBeVisible()
+Then('I should see a wiki sidebar page link {string}', async ({ page }, pageTitle: string) => {
+  await expect(page.locator('[data-testid="wiki-sidebar"]').getByRole('link', { name: pageTitle })).toBeVisible()
 })
 
-When('I select the category {string}', async ({ page }, category: string) => {
-  await page.locator('[data-testid="category-nav"]').getByRole('button', { name: category })
-    .or(page.locator('[data-testid="category-nav"]').getByRole('link', { name: category }))
-    .click()
+Then('the wiki sidebar section {string} should be collapsed by default', async ({ page }, sectionTitle: string) => {
+  await expect(
+    page.locator('[data-testid="wiki-sidebar-section"]').filter({ hasText: sectionTitle }).getByRole('button', { name: sectionTitle }),
+  ).toHaveAttribute('aria-expanded', 'false')
 })
 
-Then('I should see wiki entries for {string}', async ({ page }, category: string) => {
-  await expect(page.locator('[data-testid="wiki-entry-card"]').first()).toBeVisible()
-  await expect(page.locator('[data-testid="active-category"]').getByText(category)).toBeVisible()
+Then('the wiki sidebar section {string} should be expanded', async ({ page }, sectionTitle: string) => {
+  await expect(
+    page.locator('[data-testid="wiki-sidebar-section"]').filter({ hasText: sectionTitle }).getByRole('button', { name: sectionTitle }),
+  ).toHaveAttribute('aria-expanded', 'true')
 })
 
-When('I navigate to a wiki entry', async ({ page }) => {
-  await page.locator('[data-testid="wiki-entry-card"]').first().getByRole('link').click()
+When('I open the wiki article {string}', async ({ page }, articleTitle: string) => {
+  await page.goto('/wiki')
+  await page.getByRole('link', { name: articleTitle }).first().click()
 })
 
-Then('I should see the entry title', async ({ page }) => {
-  await expect(page.locator('[data-testid="wiki-entry"]').getByRole('heading', { level: 1 })).toBeVisible()
+Given('I am viewing the wiki article {string}', async ({ page }, articleTitle: string) => {
+  await page.goto('/wiki')
+  await page.getByRole('link', { name: articleTitle }).first().click()
 })
 
-Then('I should see the entry definition', async ({ page }) => {
-  await expect(page.locator('[data-testid="entry-definition"]')).toBeVisible()
+Then('the active wiki sidebar item should be {string}', async ({ page }, pageTitle: string) => {
+  await expect(page.locator('[data-testid="wiki-sidebar-active"]')).toHaveText(pageTitle)
 })
 
-Then('I should see the entry body', async ({ page }) => {
-  await expect(page.locator('[data-testid="entry-body"]')).toBeVisible()
+Then('the URL should end with {string}', async ({ page }, suffix: string) => {
+  await expect(page).toHaveURL(new RegExp(`${suffix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`))
 })
 
-Then('I should see a related links section', async ({ page }) => {
-  await expect(page.locator('[data-testid="related-links"]')).toBeVisible()
+Then('I should see the wiki page title {string}', async ({ page }, title: string) => {
+  await expect(page.locator('[data-testid="wiki-page-title"]')).toHaveText(title)
 })
 
-Then('I should see a {string} section', async ({ page }, sectionName: string) => {
-  await expect(page.locator('[data-testid="referenced-in"]')).toBeVisible()
+Then('I should see exactly one level 1 heading named {string}', async ({ page }, title: string) => {
+  await expect(page.getByRole('heading', { level: 1, name: title })).toHaveCount(1)
 })
 
-Then('I should see breadcrumb navigation', async ({ page }) => {
-  await expect(page.locator('[aria-label="breadcrumb"]')).toBeVisible()
+Then('I should see the wiki section heading {string}', async ({ page }, heading: string) => {
+  await expect(page.locator('[data-testid="wiki-entry-body"]').getByRole('heading', { name: heading })).toBeVisible()
+})
+
+Then('I should see a wiki reference group {string}', async ({ page }, groupTitle: string) => {
+  await expect(page.locator('[data-testid="wiki-reference-group"]').filter({ hasText: groupTitle }).first()).toBeVisible()
+})
+
+Then('I should see a wiki reference card {string}', async ({ page }, label: string) => {
+  await expect(page.locator('[data-testid="wiki-reference-card"]').filter({ hasText: label }).first()).toBeVisible()
+})
+
+Then('the wiki reference card {string} should not repeat the group title', async ({ page }, label: string) => {
+  await expect(page.locator('[data-testid="wiki-reference-card"]').filter({ hasText: label }).first()).toHaveCount(1)
+  await expect(page.locator('[data-testid="wiki-reference-card"]').filter({ hasText: label }).first()).not.toContainText('See also')
+  await expect(page.locator('[data-testid="wiki-reference-card"]').filter({ hasText: label }).first()).not.toContainText('Mentioned in this page')
+})
+
+When('I follow the wiki link {string}', async ({ page }, label: string) => {
+  await page.locator('[data-testid="wiki-entry-body"]').getByRole('link', { name: label }).click()
+})
+
+When('I search the wiki for {string}', async ({ page }, query: string) => {
+  await page.getByRole('searchbox', { name: /search the wiki/i }).fill(query)
+})
+
+Then('I should see a wiki search result for {string}', async ({ page }, title: string) => {
+  await expect(page.locator('[data-testid="wiki-search-results"]')).toContainText(title)
+})
+
+Then('I should not see a wiki search result for {string}', async ({ page }, title: string) => {
+  await expect(page.locator('[data-testid="wiki-search-results"]')).not.toContainText(title)
+})
+
+Then('I should see an unresolved wiki reference for {string}', async ({ page }, label: string) => {
+  await expect(page.locator('[data-testid="wiki-unresolved-link"]').filter({ hasText: label }).first()).toBeVisible()
+})
+
+Then('I should not see a wiki sidebar section {string}', async ({ page }, sectionTitle: string) => {
+  await expect(page.locator('[data-testid="wiki-sidebar"]').getByText(sectionTitle)).toHaveCount(0)
 })

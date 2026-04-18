@@ -1,0 +1,45 @@
+.panel {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+  width: min(220px, 100%);
+}
+
+.group {
+  display: grid;
+  gap: 0.8rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.heading {
+  font-size: 1rem;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.card,
+.cardMuted {
+  display: inline-flex;
+  align-items: center;
+  min-height: 0;
+  padding: 0.5rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(12, 9, 20, 0.55);
+}
+
+.cardMuted {
+  color: var(--text-muted);
+}
+
+.label {
+  color: var(--text);
+  font: 700 0.85rem/1 var(--sans);
+}

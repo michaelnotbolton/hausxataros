@@ -1,91 +1,109 @@
-export type TrustedHtml = string & { readonly __trustedHtml: unique symbol }
+import { wikiPages as generatedWikiPages, wikiSections as generatedWikiSections } from './wiki.generated'
 
-export function trustedHtml(html: string): TrustedHtml {
-  return html as TrustedHtml
+export interface WikiBreadcrumb {
+  label: string
+  href: string
 }
 
-export interface WikiEntry {
+export interface WikiChildPage {
+  title: string
+  routePath: string
+  summary: string
+}
+
+export interface WikiLinkReference {
+  label: string
+  href: string | null
+  status: 'resolved' | 'unresolved'
+  targetSlug: string
+}
+
+export interface WikiReferenceGroup {
+  title: string
+  tone: 'resolved' | 'mixed' | 'unresolved'
+  items: WikiLinkReference[]
+}
+
+export interface WikiSidebarPage {
+  title: string
+  routePath: string
+  isActive: boolean
+}
+
+export interface WikiSidebarSection {
+  slug: string
+  title: string
+  routePath: string
+  isActive: boolean
+  pages: WikiSidebarPage[]
+}
+
+export interface WikiTextSpan {
+  type: 'text' | 'strong' | 'emphasis' | 'wiki-link'
+  text: string
+  href?: string | null
+  status?: 'resolved' | 'unresolved'
+}
+
+export type WikiContentBlock =
+  | { type: 'heading'; level: number; text: string; id: string }
+  | { type: 'paragraph'; spans: WikiTextSpan[] }
+  | { type: 'blockquote'; spans: WikiTextSpan[] }
+  | { type: 'list'; ordered: boolean; items: WikiTextSpan[][] }
+  | { type: 'table'; header: string[]; rows: string[][] }
+  | { type: 'code'; language: string | null; code: string }
+
+export interface WikiPageRecord {
+  id: string
   title: string
   slug: string
-  definition: string
-  body: TrustedHtml
-  category: string
-  relatedLinks: { label: string; href: string }[]
-  referencedIn: { label: string; href: string }[]
-  breadcrumbs: { label: string; href: string }[]
+  routePath: string
+  sectionSlug: string
+  sectionTitle: string
+  isSectionIndex: boolean
+  summary: string
+  breadcrumbs: WikiBreadcrumb[]
+  childPages: WikiChildPage[]
+  sidebarSections: WikiSidebarSection[]
+  relatedGroups: WikiReferenceGroup[]
+  content: WikiContentBlock[]
+  links: WikiLinkReference[]
 }
 
-export const wikiEntries: WikiEntry[] = [
-  {
-    title: 'Vector',
-    slug: 'vector',
-    definition: 'A conduit through which arcane energy is channeled.',
-    body: trustedHtml('<p>Vectors are individuals or objects capable of directing magical force. They act as living bridges between the raw aether and structured spell effects.</p><p>Most Vectors are born with the gift, though the Affirmation System allows trained practitioners to temporarily assume this role.</p>'),
-    category: 'Core Mechanics',
-    relatedLinks: [
-      { label: 'Affirmation System', href: '/wiki/affirmation-system' },
-      { label: 'Threshold', href: '/wiki/threshold' },
-    ],
-    referencedIn: [
-      { label: 'Core Mechanics Overview', href: '/studio-notes/core-mechanics-overview' },
-    ],
-    breadcrumbs: [
-      { label: 'Wiki', href: '/wiki' },
-      { label: 'Core Mechanics', href: '/wiki/core-mechanics' },
-      { label: 'Vector', href: '/wiki/vector' },
-    ],
-  },
-  {
-    title: 'Threshold',
-    slug: 'threshold',
-    definition: 'The boundary between the material plane and the Aether.',
-    body: trustedHtml('<p>The Threshold is a semi-permeable membrane separating everyday reality from the raw magical substrate known as the Aether. Crossings are dangerous without preparation.</p>'),
-    category: 'Lore & World',
-    relatedLinks: [
-      { label: 'Vector', href: '/wiki/vector' },
-      { label: 'The Rift', href: '/wiki/the-rift' },
-    ],
-    referencedIn: [
-      { label: 'Chapter 3: The Rift', href: '/work' },
-    ],
-    breadcrumbs: [
-      { label: 'Wiki', href: '/wiki' },
-      { label: 'Lore', href: '/wiki/lore' },
-      { label: 'Threshold', href: '/wiki/threshold' },
-    ],
-  },
-  {
-    title: 'Affirmation System',
-    slug: 'affirmation-system',
-    definition: 'A ritual framework for temporarily granting Vector abilities to non-gifted practitioners.',
-    body: trustedHtml('<p>The Affirmation System was developed by the Archive as a way to expand the pool of available Vectors during the Collapse. Critics argue it commodifies what should be an innate gift.</p>'),
-    category: 'Core Mechanics',
-    relatedLinks: [
-      { label: 'Vector', href: '/wiki/vector' },
-    ],
-    referencedIn: [],
-    breadcrumbs: [
-      { label: 'Wiki', href: '/wiki' },
-      { label: 'Mechanics', href: '/wiki/mechanics' },
-      { label: 'Affirmation System', href: '/wiki/affirmation-system' },
-    ],
-  },
-]
-
-export const wikiCategories = [
-  'Core Mechanics',
-  'Lore & World',
-  'Character Creation',
-  'Powers & Abilities',
-  'Creatures & NPCs',
-  'Factions & Organizations',
-  'Timeline & History',
-]
-
-export function getWikiEntryBySlug(slug: string): WikiEntry | undefined {
-  return wikiEntries.find((e) => e.slug === slug)
+export interface WikiSectionRecord {
+  slug: string
+  title: string
+  routePath: string
+  summary: string
+  articleCount: number
 }
 
-export function getWikiEntriesByCategory(category: string): WikiEntry[] {
-  return wikiEntries.filter((e) => e.category === category)
+export const wikiSections = generatedWikiSections as unknown as WikiSectionRecord[]
+export const wikiPages = generatedWikiPages as unknown as WikiPageRecord[]
+
+export function getWikiPageByRoutePath(routePath: string): WikiPageRecord | undefined {
+  return wikiPages.find((page) => page.routePath === routePath)
+}
+
+export function getDefaultWikiPage(): WikiPageRecord | undefined {
+  return wikiPages.find((page) => page.routePath === '/wiki/glossary')
+    ?? wikiPages.find((page) => page.isSectionIndex)
+}
+
+export function searchWikiPages(query: string): WikiPageRecord[] {
+  const normalizedQuery = query.trim().toLowerCase()
+
+  if (!normalizedQuery) {
+    return []
+  }
+
+  return wikiPages.filter((page) => {
+    if (page.isSectionIndex) return false
+
+    const haystack = [page.title, page.summary, page.sectionTitle]
+      .join(' ')
+      .toLowerCase()
+
+    return haystack.includes(normalizedQuery)
+  })
 }

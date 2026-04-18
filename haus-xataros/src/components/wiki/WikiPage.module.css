@@ -1,0 +1,146 @@
+.shell {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: minmax(220px, 260px) minmax(0, 1fr) minmax(220px, 280px);
+  align-items: start;
+}
+
+.page {
+  display: grid;
+  gap: 1.5rem;
+  min-width: 0;
+  padding: 1.75rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(circle at top right, rgba(191, 90, 242, 0.12), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)),
+    var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  color: var(--text-muted);
+  font: 700 0.8rem/1 var(--sans);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.separator {
+  margin-inline: 0.45rem;
+  color: var(--line-strong);
+}
+
+.hero {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.kicker {
+  color: var(--gold);
+  font: 700 0.82rem/1 var(--sans);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.title {
+  max-width: 14ch;
+}
+
+.summary {
+  max-width: 68ch;
+  font-size: 1.08rem;
+}
+
+.body {
+  display: grid;
+  gap: 1rem;
+}
+
+.body p,
+.body li,
+.body blockquote,
+.body td,
+.body th {
+  color: var(--text-muted);
+}
+
+.body h2,
+.body h3 {
+  padding-top: 0.5rem;
+}
+
+.callout {
+  margin: 0;
+  padding: 1rem 1.15rem;
+  border-left: 4px solid var(--gold);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: rgba(245, 197, 94, 0.08);
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.tableWrap table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tableWrap th,
+.tableWrap td {
+  padding: 0.8rem 0.9rem;
+  border: 1px solid var(--line);
+  text-align: left;
+}
+
+.tableWrap th {
+  color: var(--gold);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.directory {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.childHeading {
+  font-size: 1.1rem;
+}
+
+.directoryList {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.directoryRow {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.directoryTitle {
+  color: var(--text);
+  font: 700 1rem/1.2 var(--sans);
+}
+
+.directorySummary {
+  color: var(--text-muted);
+}
+
+.unresolvedLink {
+  color: var(--rose);
+  font-weight: 700;
+}
+
+@media (max-width: 1080px) {
+  .shell {
+    grid-template-columns: 1fr;
+  }
+}

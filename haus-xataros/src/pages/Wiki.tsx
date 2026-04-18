@@ -1,43 +1,74 @@
+import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import WikiSearch from '../components/wiki/WikiSearch'
-import CategoryNav from '../components/wiki/CategoryNav'
-import WikiEntryCard from '../components/wiki/WikiEntryCard'
-import { wikiEntries, wikiCategories } from '../data/wiki'
+import WikiSidebar from '../components/wiki/WikiSidebar'
+import { getDefaultWikiPage, searchWikiPages } from '../data/wiki'
+import styles from './Wiki.module.css'
 
 export default function Wiki() {
-  const [activeCategory, setActiveCategory] = useState<string>()
   const [searchQuery, setSearchQuery] = useState('')
+  const results = searchWikiPages(searchQuery)
+  const defaultPage = getDefaultWikiPage()
+  const browseSections = defaultPage?.sidebarSections.map((section) => ({
+    ...section,
+    isActive: false,
+    pages: section.pages.map((page) => ({
+      ...page,
+      isActive: false,
+    })),
+  }))
 
-  const filtered = wikiEntries.filter((entry) => {
-    if (activeCategory && entry.category !== activeCategory) return false
-    if (searchQuery && !entry.title.toLowerCase().includes(searchQuery.toLowerCase())) return false
-    return true
-  })
-
-  function handleSearch(query: string) {
-    setSearchQuery(query)
+  if (!defaultPage || !browseSections) {
+    return null
   }
 
   return (
-    <>
-      <h1>The Wiki</h1>
-      <WikiSearch onSearch={handleSearch} />
-      <CategoryNav
-        categories={wikiCategories}
-        activeCategory={activeCategory}
-        onSelect={setActiveCategory}
-      />
-      <section data-testid="search-results">
-        {filtered.map((entry) => (
-          <WikiEntryCard
-            key={entry.slug}
-            title={entry.title}
-            slug={entry.slug}
-            definition={entry.definition}
-            category={entry.category}
-          />
-        ))}
+    <section className={styles.shell}>
+      <WikiSidebar sections={browseSections} />
+
+      <section className={styles.main}>
+        <div className={styles.hero}>
+          <p className={styles.kicker}>Obsidian Vault Wiki</p>
+          <h1>The Wiki</h1>
+          <p className={styles.summary}>
+            Browse the published vault like a reference manual, then search when you know what
+            you need.
+          </p>
+        </div>
+
+        <WikiSearch value={searchQuery} onSearch={setSearchQuery} />
+
+        {searchQuery ? (
+          <section className={styles.resultSection}>
+            <h2>Search Results</h2>
+            <div className={styles.resultList} data-testid="wiki-search-results">
+              {results.map((page) => (
+                <Link className={styles.resultRow} key={page.routePath} to={page.routePath}>
+                  <span className={styles.resultTitle}>{page.title}</span>
+                  <span className={styles.resultMeta}>{page.sectionTitle}</span>
+                  <span className={styles.resultSummary}>{page.summary}</span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        ) : (
+          <section className={styles.intro}>
+            <h2>Start With {defaultPage.sectionTitle}</h2>
+            <p>
+              Use the sidebar to move through sections and pages. The article surface keeps
+              hierarchy on the left and connected references nearby so the wiki stays readable.
+            </p>
+            <div className={styles.resultList} data-testid="wiki-search-results">
+              {defaultPage.childPages.slice(0, 8).map((page) => (
+                <Link className={styles.resultRow} key={page.routePath} to={page.routePath}>
+                  <span className={styles.resultTitle}>{page.title}</span>
+                  <span className={styles.resultSummary}>{page.summary}</span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
       </section>
-    </>
+    </section>
   )
 }
