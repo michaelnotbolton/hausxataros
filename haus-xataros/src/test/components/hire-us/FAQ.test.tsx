@@ -32,11 +32,20 @@ describe('FAQ', () => {
     })
   })
 
+  it('opens the first question by default', () => {
+    render(<FAQ items={items} />)
+
+    expect(screen.getByRole('button', { name: items[0].question })).toHaveAttribute('aria-pressed', 'true')
+    expect(screen.getByText(items[0].answer)).toBeVisible()
+  })
+
   it('answers are accessible via expand/collapse', async () => {
     const user = userEvent.setup()
     render(<FAQ items={items} />)
-    const firstQuestion = screen.getByText(items[0].question)
-    await user.click(firstQuestion)
-    expect(screen.getByText(items[0].answer)).toBeVisible()
+    const secondQuestion = screen.getByRole('button', { name: items[1].question })
+    await user.click(secondQuestion)
+    expect(secondQuestion).toHaveAttribute('aria-pressed', 'true')
+    expect(screen.getByRole('button', { name: items[0].question })).toHaveAttribute('aria-pressed', 'false')
+    expect(screen.getByText(items[1].answer)).toBeVisible()
   })
 })

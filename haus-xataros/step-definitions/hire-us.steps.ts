@@ -4,7 +4,7 @@ import { expect } from '@playwright/test'
 const { When, Then } = createBdd()
 
 Then('I should see a consultant named {string}', async ({ page }, name: string) => {
-  await expect(page.locator('[data-testid="consultant-profile"]').getByText(name)).toBeVisible()
+  await expect(page.locator('[data-testid="consultant-profile"]').getByRole('heading', { name: new RegExp(name) })).toBeVisible()
 })
 
 Then('I should see a consultant bio', async ({ page }) => {

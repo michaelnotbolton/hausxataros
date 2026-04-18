@@ -12,6 +12,7 @@ import WikiEntryPage from './pages/WikiEntryPage'
 import Support from './pages/Support'
 import Contact from './pages/Contact'
 import Review from './pages/Review'
+import ConsultantPage from './pages/ConsultantPage'
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/support" element={<Support />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/review" element={<Review />} />
+          <Route path="/:consultantSlug" element={<ConsultantPage />} />
         </Routes>
       </main>
       <Footer />

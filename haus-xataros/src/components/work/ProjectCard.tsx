@@ -1,5 +1,6 @@
 import Tag from '../ui/Tag'
 import styles from './ProjectCard.module.css'
+import { getConsultantByAuthorKey } from '../../data/consultants'
 
 interface Download {
   label: string
@@ -11,9 +12,11 @@ interface ProjectCardProps {
   description: string
   category: string
   format: string
+  authorKey: string
   version: string
   downloads: Download[]
   seriesProgression?: string[]
+  activeAuthor?: string | null
 }
 
 export default function ProjectCard({
@@ -21,17 +24,29 @@ export default function ProjectCard({
   description,
   category,
   format,
+  authorKey,
   version,
   downloads,
   seriesProgression,
+  activeAuthor,
 }: ProjectCardProps) {
   const basePath = import.meta.env.BASE_URL
+  const author = getConsultantByAuthorKey(authorKey)
+  const authorSelected = Boolean(activeAuthor && activeAuthor === author?.name)
 
   return (
-    <article className={styles.card} data-testid="project-card" data-category={category} data-format={format}>
+    <article
+      className={styles.card}
+      data-testid="project-card"
+      data-category={category}
+      data-format={format}
+      data-author={author?.name}
+      data-author-selected={authorSelected}
+    >
       <div className={styles.meta}>
         <Tag tone="muted">{category}</Tag>
         <Tag tone="muted">{format}</Tag>
+        {author && <Tag tone={authorSelected ? 'gold' : 'muted'}>{author.name}</Tag>}
         <Tag data-testid="version-label">{version}</Tag>
       </div>
       <h2 className={styles.title}>{title}</h2>

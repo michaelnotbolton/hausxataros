@@ -7,7 +7,7 @@ Feature: Hire Us (Consulting)
     Given I am on the "/hire-us" page
 
   Scenario: Intro section is visible with headline
-    Then I should see the heading "Why Hiring an Underemployed Drag Queen Might Be the Smartest Decision You Ever Made"
+    Then I should see the heading "Story-led consulting for projects that need clarity, structure, and a sharper point of view."
 
   Scenario: Consultant profile is displayed
     Then I should see a consultant named "David M. Daniel"

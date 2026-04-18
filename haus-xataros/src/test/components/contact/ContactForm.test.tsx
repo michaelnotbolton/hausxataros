@@ -33,6 +33,17 @@ describe('ContactForm', () => {
     expect(screen.getByRole('button', { name: /send/i })).toBeInTheDocument()
   })
 
+  it('renders consultant options when provided', () => {
+    render(
+      <ContactForm
+        consultants={[{ label: 'David M. Daniel', value: 'david-m-daniel' }]}
+      />,
+    )
+
+    expect(screen.getByLabelText('Consultant')).toBeInTheDocument()
+    expect(screen.getByRole('option', { name: 'David M. Daniel' })).toHaveValue('david-m-daniel')
+  })
+
   it('shows a confirmation message after submission', async () => {
     const user = userEvent.setup()
     render(<ContactForm />)
@@ -47,15 +58,22 @@ describe('ContactForm', () => {
   it('calls onSubmit with form data when submitted', async () => {
     const user = userEvent.setup()
     const onSubmit = vi.fn()
-    render(<ContactForm onSubmit={onSubmit} />)
+    render(
+      <ContactForm
+        consultants={[{ label: 'David M. Daniel', value: 'david-m-daniel' }]}
+        onSubmit={onSubmit}
+      />,
+    )
     await user.type(screen.getByLabelText(/name/i), 'Test User')
     await user.type(screen.getByLabelText(/email/i), 'test@example.com')
+    await user.selectOptions(screen.getByLabelText('Consultant'), 'david-m-daniel')
     await user.type(screen.getByLabelText(/subject/i), 'Hello')
     await user.type(screen.getByLabelText(/message/i), 'Test message')
     await user.click(screen.getByRole('button', { name: /send/i }))
     expect(onSubmit).toHaveBeenCalledWith({
       name: 'Test User',
       email: 'test@example.com',
+      consultant: 'david-m-daniel',
       subject: 'Hello',
       message: 'Test message',
     })
