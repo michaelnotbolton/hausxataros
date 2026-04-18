@@ -14,6 +14,7 @@
     "preview": "vite preview",
     "postbuild": "cp dist/index.html dist/404.html",
     "verify:native-bindings": "node ./scripts/verify-native-bindings.cjs",
+    "verify:pr": "npm run test:e2e:check-generated && npm run test:all && npm run build",
     "test": "vitest run",
     "test:all": "npm test && npm run test:e2e",
     "test:watch": "vitest",

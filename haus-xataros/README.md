@@ -40,6 +40,7 @@ Useful local URLs:
 ## Daily Commands
 
 ```bash
+npm run verify:pr
 npm test
 npm run build
 npm run test:e2e:generate
@@ -53,6 +54,7 @@ npm run build-storybook:pages
 
 What each command does:
 
+- `npm run verify:pr`: the required pre-PR gate; checks generated Playwright sync, runs unit tests, runs the browser suite, and builds the production bundle on the current branch
 - `npm test`: fast unit and component verification with Vitest
 - `npm run build`: TypeScript check plus production bundle
 - `npm run test:e2e:generate`: regenerates the committed Playwright test layer in `.features-gen/`
@@ -236,6 +238,24 @@ Use this order before calling a feature ready:
 9. `npm run build` passed.
 10. Docker verification status is known if container shipping matters.
 11. The PR summary includes Gherkin, generated test sync, Storybook, build, and deploy status.
+
+## Pre-PR Gate
+
+Before opening or updating a PR, run this from the exact branch you plan to push:
+
+```bash
+npm run verify:pr
+```
+
+This is the non-optional local gate for user-facing behavior changes. Do not treat `npm test` or `npm run build` alone as sufficient if the branch changes page behavior, Gherkin-backed flows, or Playwright-visible UI.
+
+Rules:
+
+1. Run the gate on the exact branch being pushed, not on a sibling worktree or copied checkout.
+2. If the change affects a page or interaction covered by `features/*.feature`, update the feature file and step definitions before calling the work ready.
+3. If `npm run test:e2e:generate` changes `.features-gen/`, review and commit those generated changes with the source behavior change.
+4. Do not open multiple sibling PRs that contain the same feature work.
+5. If the full gate is too expensive for an intermediate checkpoint, say so explicitly; do not imply CI-equivalent verification happened when it did not.
 
 Current feature coverage includes:
 
