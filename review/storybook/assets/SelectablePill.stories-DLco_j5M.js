@@ -1,0 +1,6 @@
+import{n as e}from"./chunk-BneVvdWh.js";import{t}from"./iframe-DGe0BcT2.js";var n,r,i,a=e((()=>{n=`_pill_f04wq_1`,r=`_selected_f04wq_28`,i={pill:n,selected:r}}));function o({className:e,selected:t=!1,type:n=`button`,...r}){let a=[i.pill,t?i.selected:``,e].filter(Boolean).join(` `);return(0,s.jsx)(`button`,{"aria-pressed":t,className:a,type:n,...r})}var s,c=e((()=>{a(),s=t(),o.__docgenInfo={description:``,methods:[],displayName:`SelectablePill`,props:{selected:{required:!1,tsType:{name:`boolean`},description:``,defaultValue:{value:`false`,computed:!1}},type:{defaultValue:{value:`'button'`,computed:!1},required:!1}},composes:[`ButtonHTMLAttributes`]}})),l,u,d,f;e((()=>{c(),l={title:`UI/SelectablePill`,component:o,args:{children:`David M. Daniel`}},u={},d={args:{selected:!0,children:`Selected author`}},u.parameters={...u.parameters,docs:{...u.parameters?.docs,source:{originalSource:`{}`,...u.parameters?.docs?.source}}},d.parameters={...d.parameters,docs:{...d.parameters?.docs,source:{originalSource:`{
+  args: {
+    selected: true,
+    children: 'Selected author'
+  }
+}`,...d.parameters?.docs?.source}}},f=[`Default`,`Selected`]}))();export{u as Default,d as Selected,f as __namedExportsOrder,l as default};
