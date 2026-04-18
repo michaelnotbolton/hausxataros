@@ -8,23 +8,37 @@
   box-shadow: var(--shadow);
 }
 
+.header {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.kicker {
+  font: 700 0.78rem/1 var(--sans);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--rose);
+}
+
+.title {
+  font-size: clamp(1.4rem, 3vw, 2rem);
+}
+
 .item {
-  padding: 1rem 1.2rem;
-  border-radius: var(--radius-sm);
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--line);
+  display: grid;
+  gap: 0.75rem;
 }
 
 .trigger {
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: var(--text);
-  font: 700 1rem/1.3 var(--sans);
   text-align: left;
+  justify-content: flex-start;
+  width: 100%;
+  min-height: 42px;
+  padding-inline: 1rem;
+  font-size: 0.78rem;
 }
 
 .answer {
-  margin-top: 0.8rem;
+  padding: 0 0.35rem 0 1rem;
   color: var(--text-muted);
 }

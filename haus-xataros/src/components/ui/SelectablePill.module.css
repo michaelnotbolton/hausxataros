@@ -1,0 +1,32 @@
+.pill {
+  min-height: 38px;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: none;
+  font: 700 0.75rem/1 var(--sans);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition:
+    background 140ms ease,
+    border-color 140ms ease,
+    color 140ms ease,
+    transform 140ms ease;
+}
+
+.pill:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.pill:focus-visible {
+  outline: 2px solid var(--gold-strong);
+  outline-offset: 2px;
+}
+
+.selected {
+  border-color: rgba(245, 197, 94, 0.5);
+  color: #1e1229;
+  background: linear-gradient(135deg, #ffd978 0%, #ffcf93 100%);
+}

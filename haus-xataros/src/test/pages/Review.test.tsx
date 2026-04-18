@@ -23,5 +23,9 @@ describe('Review page', () => {
       'href',
       '/review/storybook/?path=/story/contact-contactform--default',
     )
+    expect(screen.getByRole('link', { name: 'Pill' })).toHaveAttribute(
+      'href',
+      '/review/storybook/?path=/story/ui-selectablepill--default',
+    )
   })
 })

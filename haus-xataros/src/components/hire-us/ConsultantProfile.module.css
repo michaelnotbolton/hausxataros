@@ -21,6 +21,10 @@
   color: var(--gold);
 }
 
+.tagline {
+  color: var(--text);
+}
+
 .bio {
   color: var(--text-muted);
 }
@@ -30,4 +34,8 @@
   border-left: 3px solid var(--line-strong);
   color: var(--text);
   font-style: italic;
+}
+
+.link {
+  justify-self: start;
 }
